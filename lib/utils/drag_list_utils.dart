@@ -1,5 +1,6 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
+import 'package:kanvalorant/components/list_item.dart';
 
 import '../components/list_footer.dart';
 import '../components/list_header.dart';
@@ -48,12 +49,7 @@ List<DragAndDropItem> createListItems(List<AccountModel> accounts) {
   return accounts
       .map(
         (account) => DragAndDropItem(
-          child: Card(
-            child: ListTile(
-              title: Text(account.login),
-              trailing: const Icon(Icons.list),
-            ),
-          ),
+          child: ListItem(account: account),
         ),
       )
       .toList();

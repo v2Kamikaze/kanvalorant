@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:kanvalorant/components/custom_edit_text.dart';
 import 'package:kanvalorant/controllers/list_accounts_controller.dart';
+import 'package:kanvalorant/extensions/elo_enum_extension.dart';
 import 'package:kanvalorant/models/account_model.dart';
 
 import '../enums/elo_enum.dart';
@@ -30,6 +31,17 @@ class _AccountDialogState extends State<AccountDialog> {
         .toList();
   }
 
+  bool loginExistsInBoard(String login) {
+    for (var la in listController.board) {
+      for (var a in la.accounts) {
+        if (a.login == login) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -47,6 +59,11 @@ class _AccountDialogState extends State<AccountDialog> {
                 if (value == null || value.isEmpty) {
                   return "O campo não pode ser vazio";
                 }
+
+                if (loginExistsInBoard(value)) {
+                  return "Já existe uma conta com o login \"$value\"";
+                }
+
                 return null;
               },
             ),

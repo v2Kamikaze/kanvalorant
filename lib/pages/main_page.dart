@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:intl/intl.dart';
 
 import 'package:kanvalorant/components/backup_dialog.dart';
 import 'package:kanvalorant/controllers/list_accounts_controller.dart';
 import 'package:kanvalorant/db/file_db.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../models/accounts_model.dart';
 import '../utils/drag_list_utils.dart';
+import '../utils/path_utils.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -56,15 +55,6 @@ class _MainPageState extends State<MainPage> {
   double calcListSize(BuildContext context) {
     final size = MediaQuery.of(context).size.width * (1.0 / lAcc.length) - 20;
     return size > 250 ? size : 250;
-  }
-
-  Future<String> backupPath() async {
-    var dir = await getApplicationDocumentsDirectory();
-    var now = DateTime.now();
-    var formatter = DateFormat('yyyy_MM_dd_hh_mm_ss');
-    var date = formatter.format(now);
-    var path = "${dir.path}\\backup_$date.json";
-    return path;
   }
 
   @override
