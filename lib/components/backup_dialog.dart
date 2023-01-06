@@ -11,7 +11,6 @@ class BackupDialog extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text("Caminho copiado."),
-        duration: Duration(seconds: 1),
       ),
     );
   }

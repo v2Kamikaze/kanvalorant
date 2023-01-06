@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kanvalorant/utils/colors.dart';
 
 class ListHeader extends StatelessWidget {
   const ListHeader({super.key, required this.listTitle});
@@ -6,8 +8,15 @@ class ListHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 40,
+      decoration: const BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(4),
+          topRight: Radius.circular(4),
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Row(
@@ -15,8 +24,8 @@ class ListHeader extends StatelessWidget {
           children: [
             Text(
               listTitle.toUpperCase(),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+              style: GoogleFonts.bowlbyOneSc(
+                color: Colors.white,
               ),
             ),
           ],

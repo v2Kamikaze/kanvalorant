@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
 
-const primaryColor = Color(0xFFE84057);
-const backgroundColor = Color(0XFF1C1C1F);
+const primaryColor = Color(0xFFCE2242);
+const backgroundColor = Color(0xFF242A38);
+const listBackgroundColor = Color(0xFF0F1923);
+const cardBackgroundColor = Color(0xFF141E29);

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kanvalorant/controllers/list_accounts_controller.dart';
+import 'package:kanvalorant/utils/colors.dart';
 
 import '../models/accounts_model.dart';
 import 'account_dialog.dart';
@@ -33,21 +35,30 @@ class ListFooter extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: Padding(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               "Adicionar",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+              style: GoogleFonts.bowlbyOneSc(
+                color: Colors.white,
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                openDialog(context, role);
-              },
-              child: const Icon(Icons.add),
+            Tooltip(
+              message: "Adicionar conta",
+              child: ElevatedButton(
+                onPressed: () {
+                  openDialog(context, role);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: backgroundColor,
+                ),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),

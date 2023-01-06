@@ -1,24 +1,31 @@
-import "package:flutter/material.dart";
-import 'package:kanvalorant/components/custom_edit_text.dart';
-import 'package:kanvalorant/controllers/list_accounts_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:kanvalorant/extensions/elo_enum_extension.dart';
-import 'package:kanvalorant/models/account_model.dart';
 
+import '../controllers/list_accounts_controller.dart';
 import '../enums/elo_enum.dart';
-import '../utils/search_utils.dart';
+import '../models/account_model.dart';
+import '../utils/colors.dart';
+import 'custom_edit_text.dart';
 
-class AccountDialog extends StatefulWidget {
-  const AccountDialog({super.key, required this.role, required this.onSubmit});
-  final String role;
-  final void Function(AccountModel) onSubmit;
+class EditAccountDialog extends StatefulWidget {
+  const EditAccountDialog(
+      {super.key,
+      required this.onCreateSubmit,
+      required this.account,
+      required this.onDeleteSubmit});
+  final AccountModel account;
+  final void Function(AccountModel) onCreateSubmit;
+  final void Function(AccountModel) onDeleteSubmit;
 
   @override
-  State<AccountDialog> createState() => _AccountDialogState();
+  State<EditAccountDialog> createState() => _EditAccountDialogState();
 }
 
-class _AccountDialogState extends State<AccountDialog> {
+class _EditAccountDialogState extends State<EditAccountDialog> {
   final TextEditingController _accountLoginController = TextEditingController();
+
   final TextEditingController _accountLevelController = TextEditingController();
+
   Elo elo = Elo.unranked;
 
   final listController = ListAccountsController();
@@ -43,10 +50,6 @@ class _AccountDialogState extends State<AccountDialog> {
       return "O campo não pode ser vazio";
     }
 
-    if (loginExistsInBoard(login, listController.board)) {
-      return "Já existe uma conta com o login \"$login\"";
-    }
-
     return null;
   }
 
@@ -61,20 +64,35 @@ class _AccountDialogState extends State<AccountDialog> {
     return levelInt <= 0 ? "Digite um valor maior que 0" : null;
   }
 
-  void submitNewAccount() {
+  void submitEditAccount() {
     if (formKey.currentState!.validate()) {
       var login = _accountLoginController.text.trim();
       var level = int.parse(_accountLevelController.text);
-      widget.onSubmit(AccountModel(login, level, elo));
+      widget.onCreateSubmit(AccountModel(login, level, elo));
       Navigator.pop(context);
     }
+  }
+
+  void submitDeleteAccount() {
+    widget.onDeleteSubmit(widget.account);
+    Navigator.pop(context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      elo = widget.account.elo;
+      _accountLoginController.text = widget.account.login;
+      _accountLevelController.text = widget.account.level.toString();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Adicionar conta"),
-      icon: const Icon(Icons.add_box),
+      title: Text("Editar conta - ${widget.account.login}"),
+      icon: const Icon(Icons.edit),
       content: Form(
         key: formKey,
         child: Column(
@@ -99,10 +117,18 @@ class _AccountDialogState extends State<AccountDialog> {
           ],
         ),
       ),
+      actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
         ElevatedButton(
-          onPressed: submitNewAccount,
-          child: const Text("Criar"),
+          onPressed: submitDeleteAccount,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: primaryColor,
+          ),
+          child: const Text("Excluir conta"),
+        ),
+        ElevatedButton(
+          onPressed: submitEditAccount,
+          child: const Text("Editar"),
         ),
       ],
     );

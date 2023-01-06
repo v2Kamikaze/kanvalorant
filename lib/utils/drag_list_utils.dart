@@ -1,6 +1,8 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kanvalorant/components/list_item.dart';
+import 'package:kanvalorant/utils/colors.dart';
 
 import '../components/list_footer.dart';
 import '../components/list_header.dart';
@@ -13,13 +15,21 @@ List<DragAndDropList> createList({
   return data
       .map(
         (listAccount) => DragAndDropList(
-          contentsWhenEmpty: const Center(
-            child: Text("Lista vazia."),
+          contentsWhenEmpty: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                "Lista vazia.",
+                style: GoogleFonts.bowlbyOneSc(
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
           header: ListHeader(listTitle: listAccount.role),
           footer: ListFooter(role: listAccount.role),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: listBackgroundColor,
             borderRadius: BorderRadius.circular(4),
             boxShadow: const [
               BoxShadow(
@@ -40,7 +50,10 @@ DragHandle createListDragHandle() {
     onLeft: true,
     child: Padding(
       padding: EdgeInsets.only(left: 10, top: 10),
-      child: Icon(Icons.list),
+      child: Icon(
+        Icons.list,
+        color: Colors.white,
+      ),
     ),
   );
 }
