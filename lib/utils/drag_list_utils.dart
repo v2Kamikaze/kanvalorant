@@ -58,6 +58,21 @@ DragHandle createListDragHandle() {
   );
 }
 
+Container createItemGhost() {
+  return Container(
+    height: 65,
+    margin: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      color: cardBackgroundColor,
+      borderRadius: BorderRadius.circular(4),
+      border: Border.all(
+        color: primaryColor,
+        style: BorderStyle.solid,
+      ),
+    ),
+  );
+}
+
 List<DragAndDropItem> createListItems(List<AccountModel> accounts) {
   return accounts
       .map(

@@ -74,63 +74,65 @@ class _MainPageState extends State<MainPage> {
   @override
   build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Gerenciador de contas",
-            style: GoogleFonts.bowlbyOneSc(
-              color: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          "Gerenciador de contas",
+          style: GoogleFonts.bowlbyOneSc(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: primaryColor,
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: onBackupButtonPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor,
+              ),
+              child: Text(
+                "Gerar arquivo de backup",
+                style: GoogleFonts.bowlbyOneSc(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+      backgroundColor: backgroundColor,
+      body: Stack(
+        children: [
+          const BackgroundDecoration(),
+          Padding(
+            padding: const EdgeInsets.only(top: 25.0),
+            child: ValueListenableBuilder(
+              builder: (BuildContext context, value, _) {
+                return lAcc.isEmpty
+                    ? const Center(child: CircularProgressIndicator())
+                    : DragAndDropLists(
+                        lastItemTargetHeight: 60,
+                        axis: Axis.horizontal,
+                        listWidth: calcListSize(context),
+                        listDraggingWidth: calcListSize(context),
+                        listDragOnLongPress: false,
+                        itemDragOnLongPress: false,
+                        itemSizeAnimationDurationMilliseconds: 50,
+                        listSizeAnimationDurationMilliseconds: 200,
+                        listPadding: const EdgeInsets.all(5),
+                        listDragHandle: createListDragHandle(),
+                        children: createList(data: value),
+                        onItemReorder: onItemReorder,
+                        onListReorder: onListReorder,
+                        itemGhost: createItemGhost(),
+                      );
+              },
+              valueListenable: listController,
             ),
           ),
-          backgroundColor: primaryColor,
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: onBackupButtonPressed,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                ),
-                child: Text(
-                  "Gerar arquivo de backup",
-                  style: GoogleFonts.bowlbyOneSc(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-        backgroundColor: backgroundColor,
-        body: Stack(
-          children: [
-            const BackgroundDecoration(),
-            Padding(
-              padding: const EdgeInsets.only(top: 25.0),
-              child: ValueListenableBuilder(
-                builder: (BuildContext context, value, _) {
-                  return lAcc.isEmpty
-                      ? const Center(child: CircularProgressIndicator())
-                      : DragAndDropLists(
-                          lastItemTargetHeight: 60,
-                          axis: Axis.horizontal,
-                          listWidth: calcListSize(context),
-                          listDraggingWidth: calcListSize(context),
-                          listDragOnLongPress: false,
-                          itemDragOnLongPress: false,
-                          itemSizeAnimationDurationMilliseconds: 50,
-                          listSizeAnimationDurationMilliseconds: 200,
-                          listPadding: const EdgeInsets.all(5),
-                          listDragHandle: createListDragHandle(),
-                          children: createList(data: value),
-                          onItemReorder: onItemReorder,
-                          onListReorder: onListReorder,
-                        );
-                },
-                valueListenable: listController,
-              ),
-            ),
-          ],
-        ));
+        ],
+      ),
+    );
   }
 }
