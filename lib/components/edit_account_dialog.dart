@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kanvalorant/extensions/elo_enum_extension.dart';
 
 import '../controllers/list_accounts_controller.dart';
@@ -34,8 +35,20 @@ class _EditAccountDialogState extends State<EditAccountDialog> {
 
   List<DropdownMenuItem<Elo>> createDropDownMenuItems() {
     return Elo.values
-        .map((e) =>
-            DropdownMenuItem<Elo>(value: e, child: Text(e.toFormatedString())))
+        .map(
+          (e) => DropdownMenuItem<Elo>(
+            value: e,
+            alignment: Alignment.center,
+            child: Text(
+              e.toFormatedString(),
+              style: GoogleFonts.bowlbyOneSc(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        )
         .toList();
   }
 
@@ -91,8 +104,20 @@ class _EditAccountDialogState extends State<EditAccountDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Editar conta - ${widget.account.login}"),
-      icon: const Icon(Icons.edit),
+      title: Text(
+        "Editar conta - ${widget.account.login}",
+        style: GoogleFonts.bowlbyOneSc(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+      icon: const Icon(
+        Icons.edit,
+        size: 40,
+        color: Colors.white,
+      ),
+      backgroundColor: cardBackgroundColor,
       content: Form(
         key: formKey,
         child: Column(
@@ -108,11 +133,16 @@ class _EditAccountDialogState extends State<EditAccountDialog> {
               hintText: "Nível",
               validator: validateLevel,
             ),
-            DropdownButton<Elo>(
-              value: elo,
-              borderRadius: BorderRadius.circular(4),
-              items: createDropDownMenuItems(),
-              onChanged: onEloChanged,
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: DropdownButton<Elo>(
+                alignment: Alignment.center,
+                dropdownColor: listBackgroundColor,
+                value: elo,
+                borderRadius: BorderRadius.circular(4),
+                items: createDropDownMenuItems(),
+                onChanged: onEloChanged,
+              ),
             ),
           ],
         ),
@@ -124,11 +154,26 @@ class _EditAccountDialogState extends State<EditAccountDialog> {
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
           ),
-          child: const Text("Excluir conta"),
+          child: Text(
+            "Excluir conta",
+            style: GoogleFonts.bowlbyOneSc(
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
         ),
         ElevatedButton(
           onPressed: submitEditAccount,
-          child: const Text("Editar"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor,
+          ),
+          child: Text(
+            "Editar",
+            style: GoogleFonts.bowlbyOneSc(
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
         ),
       ],
     );

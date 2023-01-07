@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kanvalorant/components/custom_edit_text.dart';
 import 'package:kanvalorant/controllers/list_accounts_controller.dart';
 import 'package:kanvalorant/extensions/elo_enum_extension.dart';
@@ -6,6 +7,7 @@ import 'package:kanvalorant/models/account_model.dart';
 
 import '../enums/elo_enum.dart';
 import '../utils/search_utils.dart';
+import '../utils/colors.dart';
 
 class AccountDialog extends StatefulWidget {
   const AccountDialog({super.key, required this.role, required this.onSubmit});
@@ -27,8 +29,20 @@ class _AccountDialogState extends State<AccountDialog> {
 
   List<DropdownMenuItem<Elo>> createDropDownMenuItems() {
     return Elo.values
-        .map((e) =>
-            DropdownMenuItem<Elo>(value: e, child: Text(e.toFormatedString())))
+        .map(
+          (e) => DropdownMenuItem<Elo>(
+            value: e,
+            alignment: Alignment.center,
+            child: Text(
+              e.toFormatedString(),
+              style: GoogleFonts.bowlbyOneSc(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        )
         .toList();
   }
 
@@ -40,7 +54,7 @@ class _AccountDialogState extends State<AccountDialog> {
 
   String? validateLogin(String? login) {
     if (login == null || login.isEmpty) {
-      return "O campo não pode ser vazio";
+      return "Login não pode ser vazio";
     }
 
     if (loginExistsInBoard(login, listController.board)) {
@@ -52,7 +66,7 @@ class _AccountDialogState extends State<AccountDialog> {
 
   String? validateLevel(String? level) {
     if (level == null || level.isEmpty) {
-      return "O campo não pode ser vazio";
+      return "Nível não pode ser vazio";
     }
     if (int.tryParse(level) == null) {
       return "Digite um valor numérico";
@@ -73,8 +87,20 @@ class _AccountDialogState extends State<AccountDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Adicionar conta"),
-      icon: const Icon(Icons.add_box),
+      title: Text(
+        "Adicionar conta",
+        style: GoogleFonts.bowlbyOneSc(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+      icon: const Icon(
+        Icons.add_box,
+        size: 40,
+        color: Colors.white,
+      ),
+      backgroundColor: cardBackgroundColor,
       content: Form(
         key: formKey,
         child: Column(
@@ -90,11 +116,16 @@ class _AccountDialogState extends State<AccountDialog> {
               hintText: "Nível",
               validator: validateLevel,
             ),
-            DropdownButton<Elo>(
-              value: elo,
-              borderRadius: BorderRadius.circular(4),
-              items: createDropDownMenuItems(),
-              onChanged: onEloChanged,
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: DropdownButton<Elo>(
+                alignment: Alignment.center,
+                dropdownColor: listBackgroundColor,
+                value: elo,
+                borderRadius: BorderRadius.circular(4),
+                items: createDropDownMenuItems(),
+                onChanged: onEloChanged,
+              ),
             ),
           ],
         ),
@@ -102,7 +133,16 @@ class _AccountDialogState extends State<AccountDialog> {
       actions: [
         ElevatedButton(
           onPressed: submitNewAccount,
-          child: const Text("Criar"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: backgroundColor,
+          ),
+          child: Text(
+            "Criar",
+            style: GoogleFonts.bowlbyOneSc(
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
         ),
       ],
     );
