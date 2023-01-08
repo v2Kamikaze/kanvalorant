@@ -53,15 +53,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  msix: ^3.7.0
-
-msix_config:
-  display_name: kanvalorant
-  publisher_display_name: v2code
-  identity_name: com.v2code.kanvalorant
-  msix_version: 1.0.0.0
-  logo_path: lib\assets\logo.png
-  capabilities: internetClient, removableStorage,
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
