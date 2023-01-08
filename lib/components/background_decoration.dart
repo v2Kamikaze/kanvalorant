@@ -22,6 +22,7 @@ class BackgroundDecoration extends StatelessWidget {
         "lib/assets/img_background.jpeg",
         fit: BoxFit.cover,
         width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
       ),
     );
   }

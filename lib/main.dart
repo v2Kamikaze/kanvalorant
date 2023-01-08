@@ -8,11 +8,10 @@ import 'app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+
   if (Platform.isWindows) {
     WindowOptions windowOptions = const WindowOptions(
-      minimumSize: Size(1540, 800),
-      maximumSize: Size(1540, 800),
-      size: Size(1540, 800),
+      minimumSize: Size(400, 600),
     );
     windowManager.waitUntilReadyToShow(windowOptions);
   }

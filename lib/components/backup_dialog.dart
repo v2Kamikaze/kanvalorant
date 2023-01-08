@@ -25,6 +25,77 @@ class BackupDialog extends StatelessWidget {
     );
   }
 
+  double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
+  Widget childWhenWidth(double width, BuildContext context) {
+    var textWidgetSave = Text(
+      "O arquivo foi salvo em: ",
+      style: GoogleFonts.bowlbyOneSc(
+        color: Colors.white.withOpacity(0.5),
+        fontWeight: FontWeight.normal,
+      ),
+    );
+
+    var textWidgetPath = SelectableText(
+      path,
+      style: GoogleFonts.bowlbyOneSc(
+        color: Colors.white,
+        fontWeight: FontWeight.normal,
+      ),
+    );
+
+    var copyButton = Padding(
+      padding: width > 1100
+          ? const EdgeInsets.only(left: 8.0)
+          : const EdgeInsets.only(top: 8.0),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: listBackgroundColor,
+        ),
+        onPressed: () {
+          Clipboard.setData(ClipboardData(text: path)).then((_) {
+            showSnackBar(context);
+          });
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Copiar",
+              style: GoogleFonts.bowlbyOneSc(
+                color: Colors.white,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Icon(Icons.copy_all_outlined),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (width > 1200) {
+      return Row(
+        children: [
+          textWidgetSave,
+          textWidgetPath,
+          copyButton,
+        ],
+      );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        textWidgetSave,
+        textWidgetPath,
+        copyButton,
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -57,38 +128,7 @@ class BackupDialog extends StatelessWidget {
           ),
         )
       ],
-      content: Row(
-        children: [
-          Text(
-            "O arquivo foi salvo em: ",
-            style: GoogleFonts.bowlbyOneSc(
-              color: Colors.white.withOpacity(0.5),
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          SelectableText(
-            path,
-            style: GoogleFonts.bowlbyOneSc(
-              color: Colors.white,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: listBackgroundColor,
-              ),
-              onPressed: () {
-                Clipboard.setData(ClipboardData(text: path)).then((_) {
-                  showSnackBar(context);
-                });
-              },
-              child: const Icon(Icons.copy_all_outlined),
-            ),
-          ),
-        ],
-      ),
+      content: childWhenWidth(screenWidth(context), context),
     );
   }
 }

@@ -21,29 +21,77 @@ class AccountModel {
       case "unraked":
         elo = Elo.unranked;
         break;
-      case "iron":
-        elo = Elo.iron;
+      case "ironI":
+        elo = Elo.ironI;
         break;
-      case "bronze":
-        elo = Elo.bronze;
+      case "ironII":
+        elo = Elo.ironII;
         break;
-      case "silver":
-        elo = Elo.silver;
+      case "ironIII":
+        elo = Elo.ironIII;
         break;
-      case "gold":
-        elo = Elo.gold;
+      case "bronzeI":
+        elo = Elo.bronzeI;
         break;
-      case "platinum":
-        elo = Elo.platinum;
+      case "bronzeII":
+        elo = Elo.bronzeII;
         break;
-      case "diamond":
-        elo = Elo.diamond;
+      case "bronzeIII":
+        elo = Elo.bronzeIII;
         break;
-      case "ascendant":
-        elo = Elo.ascendant;
+      case "silverI":
+        elo = Elo.silverI;
         break;
-      case "immortal":
-        elo = Elo.immortal;
+      case "silverII":
+        elo = Elo.silverII;
+        break;
+      case "silverIII":
+        elo = Elo.silverIII;
+        break;
+      case "goldI":
+        elo = Elo.goldI;
+        break;
+      case "goldII":
+        elo = Elo.goldII;
+        break;
+      case "goldIII":
+        elo = Elo.goldIII;
+        break;
+      case "platinumI":
+        elo = Elo.platinumI;
+        break;
+      case "platinumII":
+        elo = Elo.platinumII;
+        break;
+      case "platinumIII":
+        elo = Elo.platinumIII;
+        break;
+      case "diamondI":
+        elo = Elo.diamondI;
+        break;
+      case "diamondII":
+        elo = Elo.diamondII;
+        break;
+      case "diamondIII":
+        elo = Elo.diamondIII;
+        break;
+      case "ascendantI":
+        elo = Elo.ascendantI;
+        break;
+      case "ascendantII":
+        elo = Elo.ascendantII;
+        break;
+      case "ascendantIII":
+        elo = Elo.ascendantIII;
+        break;
+      case "immortalI":
+        elo = Elo.immortalI;
+        break;
+      case "immortalII":
+        elo = Elo.immortalII;
+        break;
+      case "immortalIII":
+        elo = Elo.immortalIII;
         break;
       case "radiant":
         elo = Elo.radiant;

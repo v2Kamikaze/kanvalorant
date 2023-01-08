@@ -20,9 +20,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final listController = ListAccountsController();
+  final _listController = ListAccountsController();
+  final _scrollController = ScrollController();
 
-  List<ListAccountsModel> get lAcc => listController.value;
+  List<ListAccountsModel> get lAcc => _listController.value;
 
   void onItemReorder(
     int oldItemIdx,
@@ -33,31 +34,26 @@ class _MainPageState extends State<MainPage> {
     if (newListIdx == oldListIdx) {
       final item = lAcc[oldListIdx].accounts.removeAt(oldItemIdx);
       lAcc[newListIdx].accounts.insert(newItemIdx, item);
-      listController.board = List.from(lAcc);
+      _listController.board = List.from(lAcc);
       return;
     }
 
     final item = lAcc[oldListIdx].accounts.removeAt(oldItemIdx);
     if (lAcc[newListIdx].accounts.isEmpty) {
       lAcc[newListIdx].accounts.add(item);
-      listController.board = List.from(lAcc);
+      _listController.board = List.from(lAcc);
       return;
     }
 
     lAcc[newListIdx].accounts.insert(newItemIdx, item);
 
-    listController.board = List.from(lAcc);
+    _listController.board = List.from(lAcc);
   }
 
   void onListReorder(int oldListIdx, int newListIdx) {
     final draggedList = lAcc.removeAt(oldListIdx);
     lAcc.insert(newListIdx, draggedList);
-    listController.board = List.from(lAcc);
-  }
-
-  double calcListSize(BuildContext context) {
-    final size = MediaQuery.of(context).size.width * (1.0 / lAcc.length) - 20;
-    return size > 300 ? size : 300;
+    _listController.board = List.from(lAcc);
   }
 
   void onBackupButtonPressed() async {
@@ -105,30 +101,47 @@ class _MainPageState extends State<MainPage> {
       body: Stack(
         children: [
           const BackgroundDecoration(),
-          Padding(
-            padding: const EdgeInsets.only(top: 25.0),
-            child: ValueListenableBuilder(
-              builder: (BuildContext context, value, _) {
-                return lAcc.isEmpty
-                    ? const Center(child: CircularProgressIndicator())
-                    : DragAndDropLists(
-                        lastItemTargetHeight: 60,
-                        axis: Axis.horizontal,
-                        listWidth: calcListSize(context),
-                        listDraggingWidth: calcListSize(context),
-                        listDragOnLongPress: false,
-                        itemDragOnLongPress: false,
-                        itemSizeAnimationDurationMilliseconds: 50,
-                        listSizeAnimationDurationMilliseconds: 200,
-                        listPadding: const EdgeInsets.all(5),
-                        listDragHandle: createListDragHandle(),
-                        children: createList(data: value),
-                        onItemReorder: onItemReorder,
-                        onListReorder: onListReorder,
-                        itemGhost: createItemGhost(),
-                      );
-              },
-              valueListenable: listController,
+          Center(
+            child: RawScrollbar(
+              controller: _scrollController,
+              thumbVisibility: true,
+              trackVisibility: true,
+              thickness: 10,
+              trackColor: Colors.black,
+              thumbColor: Colors.white,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                controller: _scrollController,
+                child: SizedBox(
+                  width: 1500,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 25.0),
+                    child: ValueListenableBuilder(
+                      builder: (BuildContext context, value, _) {
+                        return lAcc.isEmpty
+                            ? const Center(child: CircularProgressIndicator())
+                            : DragAndDropLists(
+                                lastItemTargetHeight: 50,
+                                axis: Axis.horizontal,
+                                listWidth: 300,
+                                listDraggingWidth: 300,
+                                listDragOnLongPress: false,
+                                itemDragOnLongPress: false,
+                                itemSizeAnimationDurationMilliseconds: 50,
+                                listSizeAnimationDurationMilliseconds: 200,
+                                listPadding: const EdgeInsets.all(10),
+                                listDragHandle: createListDragHandle(),
+                                children: createList(data: value),
+                                onItemReorder: onItemReorder,
+                                onListReorder: onListReorder,
+                                itemGhost: createItemGhost(),
+                              );
+                      },
+                      valueListenable: _listController,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],

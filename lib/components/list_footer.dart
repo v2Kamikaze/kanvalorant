@@ -40,7 +40,7 @@ class ListFooter extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Adicionar",
+              "Adicionar conta",
               style: GoogleFonts.bowlbyOneSc(
                 color: Colors.white,
               ),

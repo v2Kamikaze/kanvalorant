@@ -24,22 +24,54 @@ class ListItem extends StatelessWidget {
     switch (account.elo) {
       case Elo.unranked:
         return unrankedSrc;
-      case Elo.iron:
-        return ironSrc;
-      case Elo.bronze:
-        return bronzeSrc;
-      case Elo.silver:
-        return silverSrc;
-      case Elo.gold:
-        return goldSrc;
-      case Elo.platinum:
-        return platinumSrc;
-      case Elo.diamond:
-        return diamondSrc;
-      case Elo.immortal:
-        return immortalSrc;
-      case Elo.ascendant:
-        return ascendantSrc;
+      case Elo.ironI:
+        return ironISrc;
+      case Elo.ironII:
+        return ironIISrc;
+      case Elo.ironIII:
+        return ironIIISrc;
+      case Elo.bronzeI:
+        return bronzeISrc;
+      case Elo.bronzeII:
+        return bronzeIISrc;
+      case Elo.bronzeIII:
+        return bronzeIIISrc;
+      case Elo.silverI:
+        return silverISrc;
+      case Elo.silverII:
+        return silverIISrc;
+      case Elo.silverIII:
+        return silverIIISrc;
+      case Elo.goldI:
+        return goldISrc;
+      case Elo.goldII:
+        return goldIISrc;
+      case Elo.goldIII:
+        return goldIIISrc;
+      case Elo.platinumI:
+        return platinumISrc;
+      case Elo.platinumII:
+        return platinumIISrc;
+      case Elo.platinumIII:
+        return platinumIIISrc;
+      case Elo.diamondI:
+        return diamondISrc;
+      case Elo.diamondII:
+        return diamondIISrc;
+      case Elo.diamondIII:
+        return diamondIIISrc;
+      case Elo.ascendantI:
+        return ascendantISrc;
+      case Elo.ascendantII:
+        return ascendantIISrc;
+      case Elo.ascendantIII:
+        return ascendantIIISrc;
+      case Elo.immortalI:
+        return immortalISrc;
+      case Elo.immortalII:
+        return immortalIISrc;
+      case Elo.immortalIII:
+        return immortalIIISrc;
       case Elo.radiant:
         return radiantSrc;
     }
@@ -50,7 +82,7 @@ class ListItem extends StatelessWidget {
       for (var acc in la.accounts) {
         if (acc.login == model.login) {
           la.accounts.remove(acc);
-          break;
+          return;
         }
       }
     }
@@ -105,7 +137,7 @@ class ListItem extends StatelessWidget {
           "Login: ${account.login}",
           style: GoogleFonts.bowlbyOneSc(
             color: Colors.white,
-            fontSize: 14,
+            fontSize: 12,
           ),
         ),
         subtitle: Text(
