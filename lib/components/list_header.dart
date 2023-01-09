@@ -3,16 +3,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kanvalorant/utils/colors.dart';
 
 class ListHeader extends StatelessWidget {
-  const ListHeader({super.key, required this.listTitle});
-  final String listTitle;
+  const ListHeader({super.key, required this.role});
+  final String role;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 40,
-      decoration: const BoxDecoration(
-        color: primaryColor,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color:
+            role == "vitória diária" ? const Color(0xFF185B61) : primaryColor,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(4),
           topRight: Radius.circular(4),
         ),
@@ -23,7 +24,7 @@ class ListHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              listTitle.toUpperCase(),
+              role.toUpperCase(),
               style: GoogleFonts.bowlbyOneSc(
                 color: Colors.white,
               ),

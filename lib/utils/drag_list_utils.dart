@@ -26,7 +26,7 @@ List<DragAndDropList> createList({
               ),
             ),
           ),
-          header: ListHeader(listTitle: listAccount.role),
+          header: ListHeader(role: listAccount.role),
           footer: ListFooter(role: listAccount.role),
           decoration: BoxDecoration(
             color: listBackgroundColor,

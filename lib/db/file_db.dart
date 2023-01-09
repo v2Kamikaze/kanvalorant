@@ -29,8 +29,8 @@ class FileDB implements IDataBase {
   void _writeDefaultValues(File file) async {
     var defaultValues = {
       "data": [
-        {"role": "contas", "accounts": []},
-        {"role": "subindo nivel", "accounts": []},
+        {"role": "vitória diária", "accounts": []},
+        {"role": "subindo nível", "accounts": []},
         {"role": "subindo elo", "accounts": []},
         {"role": "descendo elo", "accounts": []},
         {"role": "contas prontas", "accounts": []}
